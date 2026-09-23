@@ -1,17 +1,23 @@
-name: Fetch goapk binary
+name: Build goapk Linux
 on:
   push:
     branches: [ sbc-v38-apk-build ]
   workflow_dispatch:
 jobs:
-  fetch:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Download goapk
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.x'
+          cache: false
+      - name: Build goapk from source
         run: |
-          curl -L --fail https://raw.githubusercontent.com/zapstore/goapk/main/goapk -o goapk
-          chmod +x goapk
+          go install github.com/zapstore/goapk@latest
+          cp "$(go env GOPATH)/bin/goapk" ./goapk
+          chmod +x ./goapk
           ./goapk version
+          file ./goapk
       - uses: actions/upload-artifact@v4
         with:
           name: goapk-linux-amd64
