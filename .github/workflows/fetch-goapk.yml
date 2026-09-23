@@ -1,0 +1,19 @@
+name: Fetch goapk binary
+on:
+  push:
+    branches: [ sbc-v38-apk-build ]
+  workflow_dispatch:
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download goapk
+        run: |
+          curl -L --fail https://raw.githubusercontent.com/zapstore/goapk/main/goapk -o goapk
+          chmod +x goapk
+          ./goapk version
+      - uses: actions/upload-artifact@v4
+        with:
+          name: goapk-linux-amd64
+          path: goapk
+          if-no-files-found: error
