@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>nexa_code</title>
+  <style>:root{
+  --bg:#f6f8fb;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e5e7eb;
+  --green:#0f766e;--green2:#14b8a6;--blue:#2563eb;--danger:#b91c1c;--soft:#ecfdf5;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#f8fafc,#f2f7f6);color:var(--ink)}
+button,input{font:inherit}.shell{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:28px 0 56px}
+.panel{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 16px 40px rgba(15,23,42,.06)}
+.auth-panel{max-width:470px;margin:8vh auto}.brand-row{display:flex;align-items:center;gap:14px}.brand-row.compact h1{font-size:24px}.brand-mark{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-weight:900;font-size:26px;color:white;background:linear-gradient(135deg,#16a34a,#14b8a6 55%,#7c3aed);box-shadow:0 10px 24px rgba(20,184,166,.22)}
+h1,h2{margin:.18em 0}h1{font-size:34px}h2{font-size:23px}.eyebrow{font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--green)}.muted,.hint{color:var(--muted)}.hint{font-size:13px;line-height:1.45;margin:0}.stack{display:grid;gap:14px;margin-top:20px}label{display:grid;gap:7px;font-size:13px;font-weight:750;color:#334155}input{border:1px solid #cbd5e1;border-radius:13px;padding:13px 14px;background:#fff;outline:none}input:focus{border-color:var(--green2);box-shadow:0 0 0 4px rgba(20,184,166,.12)}
+button{border:0;border-radius:13px;padding:11px 15px;font-weight:800;cursor:pointer;transition:.16s transform,.16s opacity,.16s background}button:active{transform:translateY(1px)}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:linear-gradient(135deg,var(--green),var(--green2));color:white}.secondary{background:#eef6f5;color:#0f5d58}.ghost{background:#f1f5f9;color:#334155}.error{color:var(--danger);font-weight:700;min-height:1em;margin:0;font-size:13px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px}.top-actions{display:flex;gap:10px;align-items:center}.chip,.safe-badge{border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;background:#eef2ff;color:#4338ca}.safe-badge{background:var(--soft);color:#047857}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}.stat{background:#0f172a;color:white;border-radius:18px;padding:17px 19px}.stat span{display:block;font-size:12px;color:#cbd5e1}.stat strong{font-size:28px}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-bottom:14px}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.button-row{display:flex;gap:10px;flex-wrap:wrap}.guardrails{margin-top:18px;border:1px solid #d1fae5;background:#f0fdf4;border-radius:15px;padding:13px;display:grid;gap:4px;font-size:13px}.guardrails span{color:#47645b}.result-panel{position:relative;overflow:hidden}.qr-host{display:grid;place-items:center;min-height:280px;margin:10px 0}.qr-host svg{width:min(280px,100%);height:auto;background:white;border-radius:14px}.result-list{display:grid;gap:8px}.result-list>div{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:8px}.result-list dt{color:var(--muted);font-size:12px}.result-list dd{margin:0;font-weight:800;word-break:break-all;text-align:right}.status{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:900}.status.unclaimed{background:#ecfdf5;color:#047857}.status.claimed{background:#eff6ff;color:#1d4ed8}.inventory-panel{padding-bottom:10px}.table-wrap{overflow:auto;margin-top:12px}table{width:100%;border-collapse:collapse;min-width:720px}th,td{text-align:left;padding:12px 10px;border-top:1px solid var(--line);font-size:13px}th{color:#64748b;font-size:11px;letter-spacing:.08em}.table-action{padding:7px 9px;border-radius:10px;background:#f1f5f9;color:#334155}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0f172a;color:white;padding:11px 16px;border-radius:999px;font-weight:800;box-shadow:0 14px 30px rgba(15,23,42,.22);z-index:20}
+@media(max-width:780px){.shell{width:min(100% - 18px,1120px);padding-top:14px}.grid{grid-template-columns:1fr}.topbar{align-items:flex-start}.top-actions{flex-direction:column;align-items:flex-end}.stats-grid{gap:8px}.stat{padding:14px}.stat strong{font-size:24px}.panel{padding:17px;border-radius:18px}.safe-badge{display:none}.button-row button{flex:1}}
+@media print{body{background:white}.topbar,.stats-grid,.grid>article:first-child,.inventory-panel,.top-actions,.button-row,.hint,.eyebrow{display:none!important}.shell{width:100%;padding:0}.grid{display:block}.result-panel{box-shadow:none;border:0;padding:0}.result-panel h2{text-align:center;font-size:28px}.qr-host{margin:0}.result-list{max-width:520px;margin:0 auto}}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <section id="loginView" class="panel auth-panel">
+      <div class="brand-row">
+        <div class="brand-mark">N</div>
+        <div><div class="eyebrow">NEXACONTROL FACTORY TOOL</div><h1>nexa_code</h1></div>
+      </div>
+      <p class="muted">Moteur privé de création et de gestion des QR Smart Box.</p>
+      <form id="loginForm" class="stack">
+        <label>Email administrateur<input id="email" type="email" autocomplete="username" required /></label>
+        <label>Mot de passe<input id="password" type="password" autocomplete="current-password" required /></label>
+        <button class="primary" type="submit">Connexion</button>
+      </form>
+      <p id="loginError" class="error"></p>
+    </section>
+
+    <section id="appView" hidden>
+      <header class="topbar">
+        <div class="brand-row compact">
+          <div class="brand-mark">N</div>
+          <div><div class="eyebrow">NEXACONTROL FACTORY TOOL</div><h1>nexa_code</h1></div>
+        </div>
+        <div class="top-actions"><span id="adminEmail" class="chip"></span><button id="logoutBtn" class="ghost">Déconnexion</button></div>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat"><span>Total</span><strong id="statTotal">—</strong></article>
+        <article class="stat"><span>Prêtes</span><strong id="statUnclaimed">—</strong></article>
+        <article class="stat"><span>Utilisées</span><strong id="statClaimed">—</strong></article>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="section-head">
+            <div><div class="eyebrow">NOUVELLE SMART BOX</div><h2>Créer un QR</h2></div>
+            <span class="safe-badge">BOX_CODE automatique</span>
+          </div>
+          <div class="stack">
+            <label>DEVICE_UID ou adresse MAC
+              <input id="deviceUid" placeholder="SBC-004B122F6D10 ou 00:4B:12:2F:6D:10" autocomplete="off" />
+            </label>
+            <div class="button-row">
+              <button id="readUsbBtn" class="secondary" type="button">Lire ESP32 par USB</button>
+              <button id="createBtn" class="primary" type="button">Créer la Smart Box</button>
+            </div>
+            <p id="usbHint" class="hint">USB direct : Chrome/Edge sur PC. Si le navigateur ne supporte pas Web Serial, colle simplement la MAC.</p>
+            <p id="createError" class="error"></p>
+          </div>
+          <div class="guardrails">
+            <strong>Protection production</strong>
+            <span>Le même DEVICE_UID ne peut être enregistré qu’une seule fois. Une box déjà claimée ne peut pas être écrasée.</span>
+          </div>
+        </article>
+
+        <article id="resultPanel" class="panel result-panel" hidden>
+          <div class="eyebrow">QR GÉNÉRÉ</div>
+          <h2 id="resultBox">—</h2>
+          <div id="qrHost" class="qr-host"></div>
+          <dl class="result-list">
+            <div><dt>DEVICE_UID</dt><dd id="resultUid">—</dd></div>
+            <div><dt>CLAIM</dt><dd id="resultClaim">—</dd></div>
+            <div><dt>Statut</dt><dd><span class="status unclaimed">UNCLAIMED</span></dd></div>
+          </dl>
+          <div class="button-row">
+            <button id="downloadPngBtn" class="secondary" type="button">PNG</button>
+            <button id="downloadSvgBtn" class="secondary" type="button">SVG</button>
+            <button id="printBtn" class="primary" type="button">Imprimer étiquette</button>
+          </div>
+          <p class="hint">Le CLAIM brut est affiché uniquement au moment de la génération. La base conserve seulement son empreinte sécurisée.</p>
+        </article>
+      </section>
+
+      <section class="panel inventory-panel">
+        <div class="section-head">
+          <div><div class="eyebrow">STOCK SMART BOX</div><h2>Inventaire</h2></div>
+          <button id="refreshBtn" class="ghost">Actualiser</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>BOX</th><th>DEVICE_UID</th><th>État</th><th>Créée</th><th></th></tr></thead>
+            <tbody id="inventoryBody"><tr><td colspan="5" class="muted">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+  <div id="toast" class="toast" hidden></div>
+  <script type="module">const SUPABASE_URL='https://mmxgcnjpnprhjszttysv.supabase.co';
+const API_KEY='sb_publishable_lLi-bdN_QLcbLrwumQeB2w_b-mzzq6i';
+const ADMIN_URL=`${SUPABASE_URL}/functions/v1/sbc-admin`;
+
+const $=id=>document.getElementById(id);
+const state={accessToken:'',email:'',inventory:[],lastQr:null};
+
+function showToast(message){const el=$('toast');el.textContent=message;el.hidden=false;clearTimeout(showToast.t);showToast.t=setTimeout(()=>el.hidden=true,2400)}
+function setBusy(btn,busy){if(!btn)return;if(!btn.dataset.label)btn.dataset.label=btn.textContent;btn.disabled=busy;btn.textContent=busy?'Patiente…':btn.dataset.label}
+function normalizeUid(raw){
+  let v=String(raw||'').trim().toUpperCase();
+  if(/^SBC-[A-F0-9]{12}$/.test(v)) return v;
+  const hex=v.replace(/[^A-F0-9]/g,'');
+  if(hex.length===12) return `SBC-${hex}`;
+  return '';
+}
+function formatDate(v){try{return new Intl.DateTimeFormat('fr-FR',{dateStyle:'short',timeStyle:'short'}).format(new Date(v))}catch{return v||'—'}}
+
+async function authLogin(email,password){
+  const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
+    method:'POST',headers:{'Content-Type':'application/json','apikey':API_KEY},body:JSON.stringify({email,password})
+  });
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(data?.error_description||data?.msg||'Connexion refusée');
+  return data;
+}
+async function admin(action,payload={}){
+  if(!state.accessToken) throw new Error('Session expirée');
+  const r=await fetch(ADMIN_URL,{method:'POST',headers:{'Content-Type':'application/json','apikey':API_KEY,'Authorization':`Bearer ${state.accessToken}`},body:JSON.stringify({action,...payload})});
+  const data=await r.json().catch(()=>({}));
+  if(r.status===401){logout();throw new Error('Session expirée');}
+  if(!r.ok) throw new Error(data?.error||`Erreur ${r.status}`);
+  return data;
+}
+
+async function login(e){
+  e.preventDefault();$('loginError').textContent='';
+  const btn=e.submitter;setBusy(btn,true);
+  try{
+    const data=await authLogin($('email').value.trim(),$('password').value);
+    state.accessToken=data.access_token;state.email=data.user?.email||$('email').value.trim();
+    sessionStorage.setItem('nexa_code_access',state.accessToken);sessionStorage.setItem('nexa_code_email',state.email);
+    await enterApp();
+  }catch(err){$('loginError').textContent=err.message}
+  finally{setBusy(btn,false)}
+}
+function logout(){state.accessToken='';state.email='';sessionStorage.removeItem('nexa_code_access');sessionStorage.removeItem('nexa_code_email');$('appView').hidden=true;$('loginView').hidden=false;$('password').value=''}
+async function enterApp(){
+  $('adminEmail').textContent=state.email;$('loginView').hidden=true;$('appView').hidden=false;
+  try{await loadInventory()}catch(err){showToast(err.message)}
+}
+
+async function loadInventory(){
+  const data=await admin('inventory');state.inventory=data.inventory||[];renderInventory();
+  $('statTotal').textContent=state.inventory.length;
+  $('statUnclaimed').textContent=state.inventory.filter(x=>x.status==='unclaimed').length;
+  $('statClaimed').textContent=state.inventory.filter(x=>x.status==='claimed').length;
+}
+function renderInventory(){
+  const body=$('inventoryBody');body.innerHTML='';
+  if(!state.inventory.length){body.innerHTML='<tr><td colspan="5" class="muted">Aucune box.</td></tr>';return}
+  for(const item of state.inventory){
+    const tr=document.createElement('tr');
+    const statusClass=item.status==='claimed'?'claimed':'unclaimed';
+    tr.innerHTML=`<td><strong>${escapeHtml(item.box_code)}</strong></td><td>${escapeHtml(item.device_uid)}</td><td><span class="status ${statusClass}">${escapeHtml(String(item.status||'').toUpperCase())}</span></td><td>${escapeHtml(formatDate(item.created_at))}</td><td></td>`;
+    if(item.status==='unclaimed'){
+      const b=document.createElement('button');b.className='table-action';b.textContent='Nouveau QR';b.onclick=()=>rotateQr(item.box_code,b);tr.lastElementChild.appendChild(b);
+    }
+    body.appendChild(tr);
+  }
+}
+function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+
+async function createBox(){
+  $('createError').textContent='';const btn=$('createBtn');const uid=normalizeUid($('deviceUid').value);
+  if(!uid){$('createError').textContent='DEVICE_UID invalide. Exemple : SBC-004B122F6D10';return}
+  $('deviceUid').value=uid;setBusy(btn,true);
+  try{
+    const data=await admin('register_factory_box_auto',{deviceUid:uid,hardwareModel:'ESP32 Dev Module',hardwareRevision:'V1'});
+    showResult({boxCode:data.inventory.box_code,deviceUid:data.inventory.device_uid,claimToken:data.claimToken,qr:data.qr,qrSvg:data.qrSvg});
+    await loadInventory();showToast(`${data.inventory.box_code} créée`);
+  }catch(err){$('createError').textContent=translateError(err.message)}
+  finally{setBusy(btn,false)}
+}
+async function rotateQr(boxCode,btn){
+  setBusy(btn,true);
+  try{const data=await admin('rotate_unclaimed_claim_auto',{boxCode});showResult(data);showToast(`QR ${boxCode} renouvelé`)}
+  catch(err){showToast(translateError(err.message))}finally{setBusy(btn,false)}
+}
+function translateError(e){
+  const map={BOX_ALREADY_CLAIMED:'Cette carte est déjà associée à une Smart Box utilisée.',DEVICE_UID_ALREADY_REGISTERED:'Cette ESP32 est déjà enregistrée dans le stock.',DEVICE_UID_INVALID:'DEVICE_UID invalide.',ADMIN_REQUIRED:'Compte administrateur requis.'};
+  return map[e]||e;
+}
+function showResult(data){
+  state.lastQr=data;$('resultPanel').hidden=false;$('resultBox').textContent=data.boxCode;$('resultUid').textContent=data.deviceUid;$('resultClaim').textContent=data.claimToken;$('qrHost').innerHTML=data.qrSvg||'';
+  $('resultPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+async function readEsp32Usb(){
+  const btn=$('readUsbBtn');$('createError').textContent='';
+  if(!('serial' in navigator)){$('createError').textContent='Web Serial non disponible ici. Utilise Chrome/Edge sur PC ou saisis la MAC manuellement.';return}
+  setBusy(btn,true);let port,reader,timer;
+  try{
+    port=await navigator.serial.requestPort();await port.open({baudRate:115200});
+    const decoder=new TextDecoderStream();port.readable.pipeTo(decoder.writable).catch(()=>{});reader=decoder.readable.getReader();
+    let buf='';const deadline=Date.now()+10000;
+    timer=setTimeout(()=>reader?.cancel().catch(()=>{}),10000);
+    while(Date.now()<deadline){
+      const {value,done}=await reader.read();if(done)break;buf+=value||'';
+      const uid=buf.match(/SBC-[A-Fa-f0-9]{12}/)?.[0];
+      const mac=buf.match(/(?:[A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}/)?.[0];
+      const found=normalizeUid(uid||mac||'');
+      if(found){$('deviceUid').value=found;showToast(`ESP32 détectée : ${found}`);break}
+      if(buf.length>8000)buf=buf.slice(-4000);
+    }
+    if(!$('deviceUid').value) throw new Error('UID non reçu. La carte doit afficher sa MAC/DEVICE_UID sur le port série.');
+  }catch(err){if(err?.name!=='NotFoundError')$('createError').textContent=err.message}
+  finally{clearTimeout(timer);try{await reader?.cancel()}catch{}try{reader?.releaseLock()}catch{}try{await port?.close()}catch{}setBusy(btn,false)}
+}
+
+function downloadSvg(){if(!state.lastQr?.qrSvg)return;const blob=new Blob([state.lastQr.qrSvg],{type:'image/svg+xml'});downloadBlob(blob,`${state.lastQr.boxCode}-QR.svg`)}
+function downloadPng(){
+  if(!state.lastQr?.qrSvg)return;const blob=new Blob([state.lastQr.qrSvg],{type:'image/svg+xml'});const url=URL.createObjectURL(blob);const img=new Image();
+  img.onload=()=>{const c=document.createElement('canvas');c.width=900;c.height=1040;const x=c.getContext('2d');x.fillStyle='white';x.fillRect(0,0,c.width,c.height);x.drawImage(img,130,70,640,640);x.fillStyle='#0f172a';x.font='700 46px system-ui';x.textAlign='center';x.fillText(state.lastQr.boxCode,450,770);x.font='28px system-ui';x.fillText(state.lastQr.deviceUid,450,825);x.font='700 28px system-ui';x.fillText(`CLAIM ${state.lastQr.claimToken}`,450,875);c.toBlob(p=>{downloadBlob(p,`${state.lastQr.boxCode}-QR.png`);URL.revokeObjectURL(url)},'image/png')};img.src=url;
+}
+function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+
+$('loginForm').addEventListener('submit',login);$('logoutBtn').onclick=logout;$('createBtn').onclick=createBox;$('readUsbBtn').onclick=readEsp32Usb;$('refreshBtn').onclick=()=>loadInventory().catch(e=>showToast(e.message));$('downloadPngBtn').onclick=downloadPng;$('downloadSvgBtn').onclick=downloadSvg;$('printBtn').onclick=()=>window.print();
+
+const saved=sessionStorage.getItem('nexa_code_access');if(saved){state.accessToken=saved;state.email=sessionStorage.getItem('nexa_code_email')||'';enterApp().catch(()=>logout())}
+</script>
+</body>
+</html>
