@@ -1,0 +1,45 @@
+name: MAESTRO Planning Android LAB APK
+on:
+  push:
+    branches:
+      - work/maestro-planning-oppo-apk-20261108
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android SDK 35
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build MAESTRO APK (debug signed, private LAB)
+        working-directory: maestro-android
+        run: gradle --no-daemon --max-workers=2 :app:assembleDebug
+      - name: Verify APK signature and package
+        run: |
+          set -euo pipefail
+          APK=maestro-android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs "$APK" > signer.txt
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK" | head -1 | grep "ma.prosolar.maestro"
+          sha256sum "$APK" > SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MAESTRO-PLANNING-OPPO-APK-V0-1-LAB
+          path: |
+            maestro-android/app/build/outputs/apk/debug/app-debug.apk
+            signer.txt
+            SHA256SUMS.txt
+          retention-days: 14
